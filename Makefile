@@ -8,3 +8,7 @@
 pysetup:
 	-conda remove -n CSSE_23_24 --all
 	-conda env create -f environment.yml
+
+# Rune "make clone_subject" to clone our subject repo.
+clone_subject:
+	-git clone git@github.com:jwtk/jjwt.git temp/jjwt
