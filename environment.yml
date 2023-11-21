@@ -1,0 +1,12 @@
+name: CSSE_23_24
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - numpy
+  - pandas
+  - python >=3.7,<4.0
+  - matplotlib
+  - scipy
