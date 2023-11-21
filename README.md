@@ -11,3 +11,9 @@ and pytorch. The PDF of the presentation can be found here (after the lecture).
 
 The second part will be a live demo of a basic data collection on a repository. The code
 can be found [here](session01/src).
+
+
+## Lab-Session 2 (upcoming, 5 December, 2023)
+
+Please **bring your laptop in lab-session 2** and ensure that the **code from lab-session 1 runs**.
+We will extend the code during the session.
