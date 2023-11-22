@@ -7,7 +7,7 @@ at VUB Brussels.
 
 This session will give a brief introduction to alternative libraries
 used to represent and process data in MSR. We will discuss NumPy, Pandas, Spark, R (vectors), TensorFlow
-and PyTorch. The PDF of the presentation can be found [here] (session01/slides.pdf).
+and PyTorch. The PDF of the presentation can be found [here](session01/slides.pdf).
 
 The second part will be a live demo of a basic data collection on a repository. The code
 can be found [here](session01/src).
