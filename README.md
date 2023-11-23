@@ -22,5 +22,6 @@ We will extend the code during the session.
 
 In the active part of session 2, you can follow up on some ideas. The previous code from session 1 can be used as a starting point.
 - You can follow up on resolving the problem of **comment length**. Different length comments should be reflected in our metric on comments.
-- You can follow up on code word **watermarks**. Not all comments matter. Some are repetitive and have no true meaning. You can develop a creative solution.
-- You can follow up on providing other metrics that **explain** the degree of how commented a class is. Taking a look at access modifications is a suitable option. Do you have other ideas?
+- You can follow up on **watermarks**. Not all comments matter. Some are repetitive and have no true meaning. You can develop a creative solution.
+- You can follow up on providing other metrics that **explain** why a class is commented. Taking a look at access modifications is a suitable option. Do you have other ideas?
+- You can follow up on **blaming the developer**. This is complicated since you need to call git's blame. A potential outcome can be the developer with the highest contribution in the file.
