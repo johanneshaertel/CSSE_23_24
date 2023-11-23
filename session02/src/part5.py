@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import tensorflow as tf
+import matplotlib.animation as animation
 
 np.random.seed(0)
 
@@ -53,5 +55,52 @@ ax.contour(alphas, betas, neg_sum_squared_errors, zdir='z', offset=np.min(neg_su
 ax.set_xlabel('alphas (parameter)')
 ax.set_ylabel('betas (parameter)')
 ax.set_zlabel('sum squared error (negative)')
+
+# NEW: Here we go!
+alpha = tf.Variable(0.0)
+beta = tf.Variable(0.0)
+
+xs_tf = tf.constant(xs, dtype=tf.float32)
+ys_tf = tf.constant(ys, dtype=tf.float32)
+
+alphas = []
+betas = []
+neg_sum_squared_errors = []
+
+# Iterations that we need to climb the hill.
+for i in range(12):
+   
+    # Define our model and its gradient with respect to parameter alpha and beta.
+    with tf.GradientTape() as tape:
+    
+        def model(x):
+            return alpha + beta * x
+
+        # Calculate the sum squared error on the data.
+        sum_squared_error = tf.reduce_sum(tf.pow(ys_tf - model(xs_tf), 2))
+
+        neg_sum_squared_error = - sum_squared_error
+
+        # Add last alpha, beta and corresponding error to the lists.
+        alphas.append(alpha.numpy())
+        betas.append(beta.numpy())
+        neg_sum_squared_errors.append(neg_sum_squared_error.numpy())
+
+        [dSQE_dalpha, dSQE_dbeta] = tape.gradient(neg_sum_squared_error, [alpha, beta])
+
+        # Update alpha and beta (assign_sub subtracts value from this variable).
+        alpha.assign_add(0.001 * dSQE_dalpha)
+        beta.assign_add(0.001 * dSQE_dbeta)
+
+# Plot the current point.
+line_animation = ax.plot(alphas, betas, neg_sum_squared_errors,  marker='o', color= "black", markersize=9)[0]
+
+# update the line plot:
+def update(frame):
+    line_animation.set_data_3d(alphas[:frame], betas[:frame], neg_sum_squared_errors[:frame])
+ 
+    return (line_animation)
+
+ani = animation.FuncAnimation(fig=fig, func=update, frames=40, interval=200)
 
 plt.show()

@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import tensorflow as tf
 
 np.random.seed(0)
 
@@ -53,5 +54,32 @@ ax.contour(alphas, betas, neg_sum_squared_errors, zdir='z', offset=np.min(neg_su
 ax.set_xlabel('alphas (parameter)')
 ax.set_ylabel('betas (parameter)')
 ax.set_zlabel('sum squared error (negative)')
+
+# NEW: Here we go!
+
+alpha = tf.Variable(0.0)
+beta = tf.Variable(0.0)
+
+xs_tf = tf.constant(xs, dtype=tf.float32)
+ys_tf = tf.constant(ys, dtype=tf.float32)
+
+# Define our model and its gradient with respect to parameter alpha and beta.
+with tf.GradientTape() as tape:
+ 
+    def model(x):
+        return alpha + beta * x
+
+    # Calculate the sum squared error on the data.
+    sum_squared_error = tf.reduce_sum(tf.pow(ys_tf - model(xs_tf), 2))
+
+    neg_sum_squared_error = - sum_squared_error
+
+    [dSQE_dalpha, dSQE_dbeta] = tape.gradient(neg_sum_squared_error, [alpha, beta])
+
+    # Plot the current point.
+    ax.plot([alpha.numpy()], [beta.numpy()], [neg_sum_squared_error.numpy()],  marker='o', color= "black", markersize=9)
+
+    # Plot the gradient.
+    ax.quiver([alpha.numpy()], [beta.numpy()], [neg_sum_squared_error.numpy()], [dSQE_dalpha.numpy()], [dSQE_dbeta.numpy()], [0], color='black', length=0.2, normalize=True)
 
 plt.show()
