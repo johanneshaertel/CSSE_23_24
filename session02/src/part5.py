@@ -23,8 +23,8 @@ sum_squared_errors = []
 grid = 30
 
 # Model fitting by searching (learning) parameters.
-for alpha in np.linspace(-0.5, 1.5, grid): # Parameter 1
-    for beta in np.linspace(-0.5, 1.5, grid): # Parameter 2
+for alpha in np.linspace(0, 1.4, grid): # Parameter 1
+    for beta in np.linspace(0, 1.4, grid): # Parameter 2
         
         # Define our model.
         def model(x):
@@ -68,7 +68,7 @@ betas = []
 neg_sum_squared_errors = []
 
 # Iterations that we need to climb the hill.
-for i in range(12):
+for i in range(19):
    
     # Define our model and its gradient with respect to parameter alpha and beta.
     with tf.GradientTape() as tape:
@@ -92,11 +92,12 @@ for i in range(12):
         alpha.assign_add(0.001 * dSQE_dalpha)
         beta.assign_add(0.001 * dSQE_dbeta)
 
-# Plot the current point.
+# Plot the current points (during the search).
 line_animation = ax.plot(alphas, betas, neg_sum_squared_errors,  marker='o', color= "black", markersize=9)[0]
 
 # update the line plot:
 def update(frame):
+    # Update the current points (during the search).
     line_animation.set_data_3d(alphas[:frame], betas[:frame], neg_sum_squared_errors[:frame])
  
     return (line_animation)

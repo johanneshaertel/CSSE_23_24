@@ -22,8 +22,8 @@ sum_squared_errors = []
 grid = 30
 
 # Model fitting by searching (learning) parameters.
-for alpha in np.linspace(-0.5, 1.5, grid): # Parameter 1
-    for beta in np.linspace(-0.5, 1.5, grid): # Parameter 2
+for alpha in np.linspace(0, 1.4, grid): # Parameter 1
+    for beta in np.linspace(0, 1.4, grid): # Parameter 2
         
         # Define our model.
         def model(x):

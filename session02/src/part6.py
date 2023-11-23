@@ -14,17 +14,23 @@ ys = np.random.normal(scale = 0.1, size = n) + mu # final output y.
 
 # END: Generate fake-data.
 
+# A post processing that shows an interesting property of the surface.
+def post(errors):
+    return np.exp(errors)
+    # return errors
+
+
 # Seaching a grid of values for alpha and beta 
 # (stupid idea, since this does not scale if we have more parameter).
 alphas = [] 
 betas = [] 
 sum_squared_errors = []
 
-grid = 30
+grid = 100
 
 # Model fitting by searching (learning) parameters.
-for alpha in np.linspace(-0.5, 1.5, grid): # Parameter 1
-    for beta in np.linspace(-0.5, 1.5, grid): # Parameter 2
+for alpha in np.linspace(0, 1.4, grid): # Parameter 1
+    for beta in np.linspace(0, 1.4, grid): # Parameter 2
         
         # Define our model.
         def model(x):
@@ -47,6 +53,8 @@ alphas = np.array(alphas).reshape(grid, grid)
 betas = np.array(betas).reshape(grid, grid)
 neg_sum_squared_errors = - np.array(sum_squared_errors).reshape(grid, grid)
 
+neg_sum_squared_errors = post(neg_sum_squared_errors) # Post processing.
+
 # Plot hill and contour.
 ax.plot_surface(alphas, betas, neg_sum_squared_errors, edgecolor='red', lw=0.5, rstride=3, cstride=3, alpha=0.3)
 ax.contour(alphas, betas, neg_sum_squared_errors, zdir='z', offset=np.min(neg_sum_squared_errors), cmap='coolwarm')
@@ -68,7 +76,7 @@ betas = []
 neg_sum_squared_errors = []
 
 # Iterations that we need to climb the hill.
-for i in range(12):
+for i in range(19):
    
     # Define our model and its gradient with respect to parameter alpha and beta.
     with tf.GradientTape() as t0:
@@ -88,8 +96,9 @@ for i in range(12):
                 betas.append(beta.numpy())
                 neg_sum_squared_errors.append(neg_sum_squared_error.numpy())
 
+                # First order gradient.
                 [dSQE_dalpha, dSQE_dbeta] = t2.gradient(neg_sum_squared_error, [alpha, beta])
-                
+            # Gradient of gradient (second-order derivative).
             [dSQE_dbeta_dbeta] = t1.gradient(dSQE_dbeta, [beta])
         [dSQE_dalpha_dalpha] = t0.gradient(dSQE_dalpha, [alpha])
 
@@ -97,15 +106,23 @@ for i in range(12):
         alpha.assign_add(0.001 * dSQE_dalpha)
         beta.assign_add(0.001 * dSQE_dbeta)
 
-# Plot the current point.
-ax.plot(alphas, betas, neg_sum_squared_errors,  marker='o', color= "black", markersize=9)
 
-alphas = np.linspace(-0.5, 1.5, grid)
-approx = dSQE_dalpha_dalpha.numpy() * np.power(alpha.numpy() - alphas, 2) * 0.5
+
+# Plot the current points (during the search).
+ax.plot(alphas, betas, post(neg_sum_squared_errors),  marker='o', color= "black", markersize=9)
+
+# Show the approximation of the surface using the second-order derivative (this is typical for statisticians).
+alphas = np.linspace(0, 1.4, grid)
+approx = dSQE_dalpha_dalpha.numpy() * np.power(alpha.numpy() - alphas, 2) * 0.5 + neg_sum_squared_errors[-1]
+approx = post(approx) # Post processing.
+
 ax.plot(alphas, np.repeat(beta.numpy(), grid), approx, color= "gold", linewidth=3)
 
-betas = np.linspace(-0.5, 1.5, grid)
-approx = dSQE_dbeta_dbeta.numpy() * np.power(beta.numpy() - betas, 2) * 0.5
+# Show the approximation of the surface using the second-order derivative (this is typical for statisticians).
+betas = np.linspace(0, 1.4, grid)
+approx = dSQE_dbeta_dbeta.numpy() * np.power(beta.numpy() - betas, 2) * 0.5 + neg_sum_squared_errors[-1]
+approx = post(approx) # Post processing. 
+
 ax.plot(np.repeat(alpha.numpy(), grid), betas, approx, color= "gold", linewidth=3)
 
 plt.show()
