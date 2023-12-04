@@ -4,14 +4,15 @@ import tensorflow as tf
 
 np.random.seed(0)
 
-# START: Generate fake-data.
-n = 100 # number of observations (was increased here).
+# START: Generate fake-data (simulation).
+n = 100 # number of observations.
 xs = np.random.normal(size = n) # random values for x.
 mu = 0.9 + xs * 0.4 # mean values for y.
+sigma = 0.1
 
-ys = np.random.normal(scale = 0.1, size = n) + mu # final output y.
+ys = np.random.normal(scale = sigma, size = n) + mu # final output y.
 
-# END: Generate fake-data.
+# END: Generate fake-data  (simulation).
 
 # Seaching a grid of values for alpha and beta 
 # (stupid idea, since this does not scale if we have more parameter).
@@ -22,8 +23,8 @@ sum_squared_errors = []
 grid = 30
 
 # Model fitting by searching (learning) parameters.
-for alpha in np.linspace(0, 1.4, grid): # Parameter 1
-    for beta in np.linspace(0, 1.4, grid): # Parameter 2
+for alpha in np.linspace(-1, 2, grid): # Parameter 1
+    for beta in np.linspace(-1, 2, grid): # Parameter 2
         
         # Define our model.
         def model(x):
@@ -38,7 +39,7 @@ for alpha in np.linspace(0, 1.4, grid): # Parameter 1
         
 
 # Plot it nicely. Plot the NEGATIVE error (to make it a hill).
-fig = plt.figure()
+fig = plt.figure(figsize=(20,15))
 ax = fig.add_subplot(projection='3d')
 
 # Numply, reshaping madness.
@@ -57,8 +58,8 @@ ax.set_zlabel('sum squared error (negative)')
 
 # NEW: Here we go!
 
-alpha = tf.Variable(0.0)
-beta = tf.Variable(0.0)
+alpha = tf.Variable(0.3)
+beta = tf.Variable(0.1)
 
 xs_tf = tf.constant(xs, dtype=tf.float32)
 ys_tf = tf.constant(ys, dtype=tf.float32)
@@ -77,9 +78,11 @@ with tf.GradientTape() as tape:
     [dSQE_dalpha, dSQE_dbeta] = tape.gradient(neg_sum_squared_error, [alpha, beta])
 
     # Plot the current point.
-    ax.plot([alpha.numpy()], [beta.numpy()], [neg_sum_squared_error.numpy()],  marker='o', color= "black", markersize=9)
+    ax.plot([alpha.numpy()], [beta.numpy()], [neg_sum_squared_error.numpy()],  marker='o', color= "blue", markersize=9)
 
     # Plot the gradient.
-    ax.quiver([alpha.numpy()], [beta.numpy()], [neg_sum_squared_error.numpy()], [dSQE_dalpha.numpy()], [dSQE_dbeta.numpy()], [0], color='black', length=0.2, normalize=True)
+    ax.quiver([alpha.numpy()], [beta.numpy()], [neg_sum_squared_error.numpy()], [dSQE_dalpha.numpy()], [dSQE_dbeta.numpy()], [0], color='blue', length=0.2, normalize=True)
+
+ax.set_title('Gradient Descent: The gradient')
 
 plt.show()

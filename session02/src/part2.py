@@ -3,24 +3,28 @@ import numpy as np
 
 np.random.seed(0)
 
-# START: Generate fake-data.
+# START: Generate fake-data (simulation).
 n = 20 # number of observations.
 xs = np.random.normal(size = n) # random values for x.
 mu = 0.9 + xs * 0.4 # mean values for y.
+sigma = 0.1
 
-ys = np.random.normal(scale = 0.1, size = n) + mu # final output y.
+ys = np.random.normal(scale = sigma, size = n) + mu # final output y.
 
-# END: Generate fake-data.
+# END: Generate fake-data  (simulation).
 
-# Define our model.
-alpha = 0.05
+# Define our model's alpha and beta (we need to explore alternatives here).
+alpha = 0.3
 beta = -0.4
 
 def model(x):
     return alpha + beta * x
 
+# Ceck how good it fits: Calculate the sum squared error on the data.
+sum_squared_error = sum(np.power(ys - model(xs), 2))
+
 # Plot it nicely.
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(10,8))
 
 # Plot nice line.
 xs_line = np.linspace(-3, 3, 100)
@@ -33,9 +37,9 @@ for i in range(n):
 
 ax.plot(xs, ys, marker='o', linestyle='', color='black')
 
-# Calculate the sum squared error on the data.
-sum_squared_error = sum(np.power(ys - model(xs), 2))
+ax.axhline(y=0, color='black', linestyle='--', linewidth=0.5)
+ax.axvline(x=0, color='black', linestyle='--', linewidth=0.5)
 
-ax.set_title(f"Sum squared error: {np.round(sum_squared_error, 2)}")
+ax.set_title(f"Error Function: Sum squared error: {np.round(sum_squared_error, 2)}")
 
 plt.show()

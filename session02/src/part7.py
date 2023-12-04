@@ -56,8 +56,11 @@ ax.set_ylabel('betas (parameter)')
 ax.set_zlabel('sum squared error (negative)')
 
 # NEW: Here we go!
-alpha = tf.Variable(0.0)
-beta = tf.Variable(0.0)
+alpha = tf.Variable(0.3)
+beta = tf.Variable(0.3)
+
+u = 0
+v = 0
 
 xs_tf = tf.constant(xs, dtype=tf.float32)
 ys_tf = tf.constant(ys, dtype=tf.float32)
@@ -66,9 +69,15 @@ alphas = []
 betas = []
 neg_sum_squared_errors = []
 
+step = 18
 # Iterations that we need to climb the hill.
-for i in range(19):
-   
+for i in range(1000):
+
+    if i % step == 0:
+        # Set random flick.
+        u = np.random.normal(scale = 0.07)
+        v = np.random.normal(scale = 0.07)
+
     # Define our model and its gradient with respect to parameter alpha and beta.
     with tf.GradientTape() as tape:
     
@@ -87,22 +96,34 @@ for i in range(19):
 
         [dSQE_dalpha, dSQE_dbeta] = tape.gradient(neg_sum_squared_error, [alpha, beta])
 
-        # Update alpha and beta (assign_sub subtracts value from this variable).
-        alpha.assign_add(0.001 * dSQE_dalpha)
-        beta.assign_add(0.001 * dSQE_dbeta)
+        u = u + 0.0003 * dSQE_dalpha
+        v = v + 0.0003 * dSQE_dbeta
+
+        # Update particle position.
+        alpha.assign_add(u)
+        beta.assign_add(v )
 
 # Plot the current points (during the search).
-line_animation = ax.plot(alphas, betas, neg_sum_squared_errors,  marker='o', color= "blue", markersize=9)[0]
+line_animation = ax.plot(alphas, betas, neg_sum_squared_errors, color= "blue")[0]
+line_animation_b = ax.scatter(alphas, betas, neg_sum_squared_errors,  marker='o', color= "blue", s= 100)
 
 # update the line plot:
 def update(frame):
+
+    low = max(0, frame - (frame % step))
+    upper = frame + 2
+    
     # Update the current points (during the search).
-    line_animation.set_data_3d(alphas[:frame], betas[:frame], neg_sum_squared_errors[:frame])
- 
-    return (line_animation)
+    line_animation.set_data_3d(alphas[low:upper], betas[low:upper], neg_sum_squared_errors[low:upper])
+    
+    epsilon = 0.01 # UI thing.
+    line_animation_b._offsets3d = (alphas[0:upper:step], betas[0:upper:step], [x + epsilon for x in neg_sum_squared_errors[0:upper:step]])
+    
+    
+    return (line_animation, line_animation_b)
 
-ani = animation.FuncAnimation(fig=fig, func=update, frames=len(alphas), interval=200)
+ani = animation.FuncAnimation(fig=fig, func=update, frames=len(alphas), interval=100)
 
-ax.set_title('Gradient Descent: Climbing the hill')
+ax.set_title("Hamiltonian Monte Carlo: A particles movement, influenced by the gradient, and random flicks every " + str(step) + " steps")
 
 plt.show()

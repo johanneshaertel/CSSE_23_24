@@ -5,19 +5,21 @@ import matplotlib.animation as animation
 
 np.random.seed(0)
 
-# START: Generate fake-data.
-n = 100 # number of observations (was increased here).
+# START: Generate fake-data (simulation).
+n = 100 # number of observations.
 xs = np.random.normal(size = n) # random values for x.
 mu = 0.9 + xs * 0.4 # mean values for y.
+sigma = 0.1
 
-ys = np.random.normal(scale = 0.1, size = n) + mu # final output y.
+ys = np.random.normal(scale = sigma, size = n) + mu # final output y.
 
-# END: Generate fake-data.
+# END: Generate fake-data  (simulation).
 
 # A post processing that shows an interesting property of the surface.
 def post(errors):
-    return np.exp(errors)
-    # return errors
+    go_log = False # Feel free to change.
+    if go_log: return np.exp(errors)
+    return errors
 
 
 # Seaching a grid of values for alpha and beta 
@@ -26,11 +28,11 @@ alphas = []
 betas = [] 
 sum_squared_errors = []
 
-grid = 100
+grid = 50
 
 # Model fitting by searching (learning) parameters.
-for alpha in np.linspace(0, 1.4, grid): # Parameter 1
-    for beta in np.linspace(0, 1.4, grid): # Parameter 2
+for alpha in np.linspace(-1, 2, grid): # Parameter 1
+    for beta in np.linspace(-1, 2, grid): # Parameter 2
         
         # Define our model.
         def model(x):
@@ -45,7 +47,7 @@ for alpha in np.linspace(0, 1.4, grid): # Parameter 1
         
 
 # Plot it nicely. Plot the NEGATIVE error (to make it a hill).
-fig = plt.figure()
+fig = plt.figure(figsize=(20,15))
 ax = fig.add_subplot(projection='3d')
 
 # Numply, reshaping madness.
@@ -109,20 +111,22 @@ for i in range(19):
 
 
 # Plot the current points (during the search).
-ax.plot(alphas, betas, post(neg_sum_squared_errors),  marker='o', color= "black", markersize=9)
+ax.plot(alphas, betas, post(neg_sum_squared_errors),  marker='o', color= "blue", markersize=9)
 
 # Show the approximation of the surface using the second-order derivative (this is typical for statisticians).
-alphas = np.linspace(0, 1.4, grid)
+alphas = np.linspace(-1, 2, grid)
 approx = dSQE_dalpha_dalpha.numpy() * np.power(alpha.numpy() - alphas, 2) * 0.5 + neg_sum_squared_errors[-1]
 approx = post(approx) # Post processing.
 
-ax.plot(alphas, np.repeat(beta.numpy(), grid), approx, color= "gold", linewidth=3)
+ax.plot(alphas, np.repeat(beta.numpy(), grid), approx, color= "cornflowerblue", linewidth=3)
 
 # Show the approximation of the surface using the second-order derivative (this is typical for statisticians).
-betas = np.linspace(0, 1.4, grid)
+betas = np.linspace(-1, 2, grid)
 approx = dSQE_dbeta_dbeta.numpy() * np.power(beta.numpy() - betas, 2) * 0.5 + neg_sum_squared_errors[-1]
 approx = post(approx) # Post processing. 
 
-ax.plot(np.repeat(alpha.numpy(), grid), betas, approx, color= "gold", linewidth=3)
+ax.plot(np.repeat(alpha.numpy(), grid), betas, approx, color= "cornflowerblue", linewidth=3)
+
+ax.set_title("Quadratic approximaiton of the surface")
 
 plt.show()
