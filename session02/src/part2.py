@@ -31,6 +31,9 @@ xs_line = np.linspace(-3, 3, 100)
 ys_line = model(xs_line)
 ax.plot(xs_line, ys_line, color='blue')
 
+ax.set_xlabel('Number of Public Methods for a Class (xs)')
+ax.set_ylabel('Number of Comments for a Class (ys)')
+
 # Plot the error of each observations.
 for i in range(n):
     ax.plot([xs[i], xs[i]], [ys[i], model(xs[i])], color='red', linestyle='--')
