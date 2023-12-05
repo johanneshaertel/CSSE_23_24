@@ -20,6 +20,7 @@ We will extend the code during the session.
 
 In the first part of the session, we will take a look at models, and different ways to use them. We will explore conceptual alternatives
 in how we can infer parameters. This will get relevant later when answer our hypothesis about software development.
+Slides can be found [here](session02/slides.pdf).
 Backup code that illustrates the slides can be found [here](session02/src).
 
 In the active part of session 2, you can follow up on some ideas. The previous code from session 1 can be used as a starting point.

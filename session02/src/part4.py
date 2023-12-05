@@ -39,7 +39,7 @@ for alpha in np.linspace(-1, 2, grid): # Parameter 1
         
 
 # Plot it nicely. Plot the NEGATIVE error (to make it a hill).
-fig = plt.figure(figsize=(20,15))
+fig = plt.figure(figsize=(15,10))
 ax = fig.add_subplot(projection='3d')
 
 # Numply, reshaping madness.
@@ -67,12 +67,12 @@ ys_tf = tf.constant(ys, dtype=tf.float32)
 # Define our model and its gradient with respect to parameter alpha and beta.
 with tf.GradientTape() as tape:
  
-    def model(x):
-        return alpha + beta * x
+    mu_tf = alpha + beta * xs_tf
 
     # Calculate the sum squared error on the data.
-    sum_squared_error = tf.reduce_sum(tf.pow(ys_tf - model(xs_tf), 2))
+    sum_squared_error = tf.reduce_sum(tf.pow(ys_tf - mu_tf, 2))
 
+    # Negate (my personal preference).
     neg_sum_squared_error = - sum_squared_error
 
     [dSQE_dalpha, dSQE_dbeta] = tape.gradient(neg_sum_squared_error, [alpha, beta])

@@ -38,7 +38,7 @@ for alpha in np.linspace(-1, 2, grid): # Parameter 1
         
 
 # Plot it nicely. Plot the NEGATIVE error (to make it a hill).
-fig = plt.figure(figsize=(20,15))
+fig = plt.figure(figsize=(15,10))
 ax = fig.add_subplot(projection='3d')
 
 # Numply, reshaping madness.
