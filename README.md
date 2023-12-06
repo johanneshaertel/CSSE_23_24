@@ -15,15 +15,18 @@ can be found [here](session01/src).
 
 ## Lab-Session 2 (upcoming, 5 December 2023)
 
-Please **bring your laptop to lab-session 2** and ensure that the **code from lab-session 1 runs**.
-We will extend the code during the session.
-
-In the first part of the session, we will take a look at models, and different ways to use them. We will explore conceptual alternatives
+In this session, we will take a look at models, and different ways to use them. We will explore conceptual alternatives
 in how we can infer parameters. This will get relevant later when we answer our hypothesis about software development or predict bugs.
+
 Slides can be found [here](session02/slides.pdf).
 Backup code that illustrates the slides can be found [here](session02/src).
 
-In the active part of session 2, you can follow up on some ideas. The previous code from session 1 can be used as a starting point.
+## Lab-Session 3 (upcoming, 12 December 2023)
+
+Please **bring your laptop to lab-session 3** and ensure that the **code from lab-session 1 runs**.
+We will extend the code during the session.
+
+Session 3 will be active. You can follow up on some ideas. The previous code from session 1 can be used as a starting point.
 - You can follow up on resolving the problem of **comment length**. Different length comments should be reflected in our metric on comments.
 - You can follow up on the idea of **watermarks**. Not all comments matter. Some are repetitive and have no true meaning. You can develop a creative solution.
 - You can follow up on providing other metrics that **explain** why a class is commented. Taking a look at access modifications is a suitable option. Do you have other ideas?
