@@ -13,7 +13,7 @@ The second part will be a live demo of a basic data collection on a repository. 
 can be found [here](session01/src).
 
 
-## Lab-Session 2 (upcoming, 5 December 2023)
+## Lab-Session 2 (5 December 2023)
 
 In this session, we will take a look at models, and different ways to use them. We will explore conceptual alternatives
 in how we can infer parameters. This will get relevant later when we answer our hypothesis about software development or predict bugs.
@@ -24,7 +24,6 @@ Backup code that illustrates the slides can be found [here](session02/src).
 ## Lab-Session 3 (upcoming, 12 December 2023)
 
 Please **bring your laptop to lab-session 3** and ensure that the **code from lab-session 1 runs**.
-We will extend the code during the session.
 
 Session 3 will be active. You can follow up on some ideas. The previous code from session 1 can be used as a starting point.
 - You can follow up on resolving the problem of **comment length**. Different length comments should be reflected in our metric on comments.
