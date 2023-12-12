@@ -61,7 +61,7 @@ The output file should be a CSV file, with the columns: *metric* (the ID of the 
 The following metrics need to be extracted.
 
 | ID  | Description                                                               |
-|-----|:--------------------------------------------------------------------------|
+|-----|:-------------------------------------------------------|-------------------|
 | LOC | Number of lines of code in file `f` at a revision `r`. |
 | CC  | Cyclomatic complexity in file `f` at a revision `r`. |
 | NC1  | Number of commits changing file `f` **before** a revision `r`. |
