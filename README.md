@@ -41,7 +41,7 @@ We limit us to studying the Java files of one repository, [jwtk/jjwt](https://gi
 In this repository, we study the following different revisions of the repository.
 
 | SHA  | DATE        | AUTHOR                                                |
-|-----|:---------------------------------------------------------------------|
+|-----|:--------------------------------------------------------|-------------|
 | 529f04dd9097331220c3239bdadacee6b1dfd6de |2023-08-04 21:35:33 | lhazlewood |
 | 894d6f298b6edc48bddedeaa8abd930cea744f9c |2021-02-17 19:39:11 | Dominik Dorn |
 | 56db77ed7e4b9165c0440ffc451dd813c9713578 |2019-10-03 01:06:23 | sal0max |
@@ -61,7 +61,7 @@ The output file should be a CSV file, with the columns: *metric* (the ID of the 
 The following metrics need to be extracted.
 
 | ID  | Description                                                               |
-|-----|:-------------------------------------------------------|-------------------|
+|-----|:--------------------------------------------------------------------------|
 | LOC | Number of lines of code in file `f` at a revision `r`. |
 | CC  | Cyclomatic complexity in file `f` at a revision `r`. |
 | NC1  | Number of commits changing file `f` **before** a revision `r`. |
