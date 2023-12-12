@@ -71,9 +71,9 @@ The following metrics need to be extracted.
 | DEV1 | Number of distinct developers who changed file `f` **before** a revision `r`.|
 | DEV2 | Number of distinct developers who changed file `f` **after** a revision `r`.|
 
-The code for analyzing the repositories needs to be written in Python. You are 
-encouraged to us the [gitpython] (https://gitpython.readthedocs.io/en/stable/tutorial.html) library.
-The library is already added the recent [environment.yml] (environment.yml).
+The code for analyzing a repository needs to be written in Python. You are 
+encouraged to us the [gitpython](https://gitpython.readthedocs.io/en/stable/tutorial.html) library.
+The library is already added the recent [environment.yml](environment.yml).
 See an [example](session03/src/example_gitpython.py) from session 3.
 
 **The submission requires the script to compute the CSV file and the CSV file.**
