@@ -21,7 +21,7 @@ in how we can infer parameters. This will get relevant later when we answer our 
 Slides can be found [here](session02/slides.pdf).
 Backup code that illustrates the slides can be found [here](session02/src).
 
-## Lab-Session 3 (upcoming, 12 December 2023)
+## Lab-Session 3 (12 December 2023)
 
 Please **bring your laptop to lab-session 3** and ensure that the **code from lab-session 1 runs**.
 
