@@ -31,14 +31,13 @@ Session 3 will be active. You can follow up on some ideas. The previous code fro
 - You can follow up on providing other metrics that **explain** why a class is commented. Taking a look at access modifications is a suitable option. Do you have other ideas?
 - You can follow up on **blaming the developer**. This is complicated since you need to call git's blame. A potential outcome can be the developer with the highest contribution in the file. We can then check if developers have different commenting behavior.
 
+The final program including the pull request by jbarber07, and fixed comment counting, can be found [here](session03/src/program.py).
+
 ## Assignment 1
 
-(**Draft**)
-
-This assignment requires building a data set that can be used for defect prediction.
-
+This assignment requires building a data set consisting of metrics that can be used for defect prediction.
 We limit us to studying the Java files of one repository, [jwtk/jjwt](https://github.com/jwtk/jjwt).
-In this repository, we study the following different revisions of the repository.
+We study the following revisions of the repository.
 
 | SHA  | DATE        | AUTHOR                                                |
 |-----|:--------------------------------------------------------|-------------|
@@ -55,9 +54,8 @@ In this repository, we study the following different revisions of the repository
 | 39b456b1a37f49e35b80b464481c81500ee638c4 |2014-09-19 23:47:43 | Les Hazlewood |
 
 For every revision `r`, compute the following metrics (ID) for all Java files in the repository at the particular revision.
-The output file should be a CSV file, with the columns: *metric* (the ID of the metric), *value* (the value of the metric),
+The output file should be a CSV or line-delimited JSON file, with the columns or keys: *metric* (the ID of the metric), *value* (the value of the metric),
 *file* (the path of the file), *revision* (the SHA of the revision).
-
 The following metrics need to be extracted.
 
 | ID  | Description                                                               |
@@ -75,5 +73,4 @@ The code for analyzing a repository needs to be written in Python. You are
 encouraged to us the [gitpython](https://gitpython.readthedocs.io/en/stable/tutorial.html) library.
 The library is already added the recent [environment.yml](environment.yml).
 See an [example](session03/src/example_gitpython.py) from session 3.
-
-**The submission requires the script to compute the CSV file and the CSV file.**
+**The submission requires the script to compute the metrics and the CSV or line-delimited JSON file. Deadline for the assignments: 21 June 2024**
