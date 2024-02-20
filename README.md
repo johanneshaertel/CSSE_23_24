@@ -33,6 +33,16 @@ Session 3 will be active. You can follow up on some ideas. The previous code fro
 
 The final program including the pull request by jbarber07, and fixed comment counting, can be found [here](session03/src/program.py).
 
+
+## Lab-Session 4 (20 February 2024)
+
+We will explore different ways of **implementing typical models** using **low to high-level** libraries.
+We will implement a **linear (regression) model** with a single and many variables,
+a **logistic regression**, and a **basic feed-forward neural network**.
+We will use **sklearn**, **TensorFlow Core**, **Keras** and **Stan**.
+
+The code can be found [here](session03/src). The slides can be found [here](session03/slides.pdf).
+
 ## Assignment 1
 
 This assignment requires building a data set consisting of metrics that can be used for defect prediction.
