@@ -41,7 +41,7 @@ We will implement a **linear (regression) model** with a single and many variabl
 a **logistic regression**, and a **basic feed-forward neural network**.
 We will use **sklearn**, **TensorFlow Core**, **Keras** and **Stan**.
 
-The code can be found [here](session03/src). The slides can be found [here](session03/slides.pdf).
+The code can be found [here](session04/src). The slides can be found [here](session04/slides.pdf).
 
 ## Assignment 1
 
